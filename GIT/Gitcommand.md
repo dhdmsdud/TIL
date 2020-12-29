@@ -58,7 +58,7 @@
 
 - `git push origin master`
 - 깃아 올려줘 origin master
-- rka원격 저장소에 로컬 저장소의 데이터를 전송
+- 원격 저장소에 로컬 저장소의 데이터를 전송
 
 
 
