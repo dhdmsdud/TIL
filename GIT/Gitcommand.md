@@ -56,4 +56,10 @@
 ### 5. push
 
 - git push origin master
-- 깃아 올려줘 origin
+- 깃아 올려줘 origin master
+- 원격 저장소에 로컬 저장소의 데이터를 전송
+
+
+
+### 6. status
+
