@@ -8,7 +8,7 @@
 
 - git init
 - .git/ 폴더를 생성해준다.
-- ![image-20201229151821608](Git command.assets/image-20201229151821608.png)
+- ![image-20201229151821608](./Gitcommand.assets/image-20201229151821608.png)
 
 - .git  폴더가 생성된 경우 오른쪽에 'master' 라는 표시가 나온다.
 - 최초에 한번만 하면된다.
