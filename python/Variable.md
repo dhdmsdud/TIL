@@ -4,7 +4,7 @@
 
 
 
-### 숫자
+### 연산자
 
 - x=1, y=2, z=3
   - 더하기, 빼기, 곱하기, 제곱, mod(z를 y로 나눠서 남은 값)
@@ -17,7 +17,7 @@ print(z**y)
 print(z%y)
 ```
 
-### 문자열
+### Type
 
 - ", ' 둘중 무엇을 써도 출력 가능
 - 줄이 넘어가는 문자열을 출력할땐 """<쓰고싶은문장>"""
@@ -29,10 +29,10 @@ print(srt(x)+y)
 print(x+int(y)
 ```
 
-### Boolean
+### 조건문(Boolean)
 
 - true / flase 구분
-- `if`로 시작	
+- `if`로 시작, 마지막`:`
   - if not, else, elif, and(모두 true), or(하나라도 true)
 
 ```python
@@ -49,7 +49,7 @@ elif x==3:
 
 - 반복되는 코드를 그룹화
 
-- `def 그룹명 ():`
+- `def():`
 
   ```python
   def dsum(a,b):
