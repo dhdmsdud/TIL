@@ -58,3 +58,23 @@ elif x==3:
   ```
 
 - 함수 마지막은`return result`로 끝냄
+
+### 반복문
+
+- `for i in range(반복의 수):` 
+
+```python
+for i in range(3):
+    print(i)
+    print("안녕, 나는 은영이야.")
+```
+
+- `while:` =>무한루프
+  - break(루프를 끝낼때), continue(특정한 밑에있는 코드를 실행시키고 싶지 않을때)
+
+```python
+while i<3:
+    print(i)
+    i=1+1
+```
+
