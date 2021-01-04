@@ -1,6 +1,6 @@
-# 변수
+# Module
 
-> variable
+> 변수, 함수, 클래스
 
 
 
