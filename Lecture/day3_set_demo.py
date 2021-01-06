@@ -12,7 +12,7 @@ print(temp , type(temp))
 casting = tuple(temp)
 print(casting , casting[1:3] , type(casting))
 
-# 교집합(intersection) : & / 합집합(union) : : / 차집합(difference) : -
+# 교집합(intersection) : & / 합집합(union) | : / 차집합(difference) : -
 # 객체(변수, 함수)
 # 객체.변수 / 객체.함수()
 set01 = set([1,2,3,4,5])

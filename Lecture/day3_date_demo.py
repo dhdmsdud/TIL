@@ -4,9 +4,9 @@ today = date.today
 print(today , type(today) , today)
 
 # 시간
-todaydatetime = datetime.today()
+todaydatetime = datetime.todaydatetime()
 print(todaydatetime)
-print('시{}' , '분 {}' , '초 {}'.format(todaydatetime.hour , todaydatetime.minute , todaydatetime.microsecond))
+print('시{}' , '분{}' , '초{}'.format(todaydatetime.hour , todaydatetime.minute , todaydatetime.microsecond))
 
 # dateutil
 # install

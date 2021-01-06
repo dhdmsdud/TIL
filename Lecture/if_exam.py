@@ -16,13 +16,11 @@ else :
 # 사용자로부터 입력 받은 시간이 정각인지 판별하라.
 # 현재시간 : 02:00
 # 현재시간 : 03:10
-clock = int(input("enter the time now : "))
-if clock == '02:00' :
-    print("정각입니다.".format(clock))
-
+strclock = '02:00 , 03:10'
+if strclock == '02:00' :
+    print(True)
 else :
-    print("정각이 아닙니다.".format(clock))
-
+    print(False)
 
 # 문제 3)
 # 사용자로 입력받은 단어가 아래 fruit 리스트에 포함되어
@@ -52,7 +50,11 @@ else :
 # 사용자가 입력한 값이 딕셔너리 키 (key) 값에 포함되었다면 "정답입니다"를
 # 아닐 경우 "오답입니다" 출력하라.
 fruit = {"봄" : "딸기", "여름" : "토마토", "가을" : "사과"}
-
+userfruit = input("enter your fruit : ")
+if userfruit in fruit :
+    print("정답입니다.")
+else:
+    print("오답입니다.")
 
 # 문제 6)
 # 사용자로부터 문자 한 개를 입력 받고,
@@ -73,8 +75,21 @@ else :
 # 21~40	 D
 # 0~20	 E
 # 사용자로부터 score를 입력받아 학점을 출력하라.
-score = input("enter your score : ")
-
+score = int(input("enter your score : "))
+if 81 <= score <= 100 :
+    print("A")
+else :
+    if 61 <= score <=80 :
+        print("B")
+    else :
+        if 41 <= score <= 60 :
+            print("C")
+        else:
+            if 21 <= score <=40 :
+                print("D")
+            else:
+                if 0 <= score <= 20 :
+                    print("E")
 
 # 문제 8)
 # 사용자로부터 세 개의 숫자를 입력 받은 후
@@ -93,12 +108,28 @@ print(max(num))
 # 019	LGU
 # 010	알수없음
 # 휴대전화 번호 입력: 011-345-1922
+usernum = input("enter your phonenumber : ").split('-')
+if usernum[0] == "011" :
+    print("SKT")
+elif usernum[0] == "016" :
+    print("KT")
+elif usernum[0] == "019" :
+    print("LGU")
+else:
+    if usernum[0] == "010" :
+        print("알수없음")
 
 # 문제 10)
 # 주민등록번호 뒷 자리 7자리 중 첫째 자리는 성별을 나타내는데
 # 1, 3은 남자 2, 4는 여자를 의미한다.
 # 사용자로부터 13자리의 주민등록번호를 입력 받은 후 성별 (남자, 여자)를 출력하는 프로그램을 작성하라.
 # >> 주민등록번호: 821010-1635210
+idcard = input("enter your idcard number : ")
+if idcard[7] == str('1' or '3') :
+    print("남자".format(idcard))
+else:
+    if idcard[7] == str('2' or '4') :
+        print("여자".format(idcard))
 
 # 문제 11)
 # 주민등록번호의 뒷 자리 7자리 중 두번째와 세번째는 지역코드를 의미한다.
@@ -106,6 +137,15 @@ print(max(num))
 # 지역코드	출생지
 # 00 ~ 08	서울
 # 09 ~ 12	부산
+idcard = input("enter your idcard number : ")
+seoul = ['00','01','02','03','04','05','06','07','08']
+busan = ['09','10','11','12']
+
+if idcard[8:10] in seoul :
+    print("출생지 : 서울".format(idcard))
+else:
+    if idcard[8:10] in busan:
+        print("출생지 : 부산".format(idcard))
 
 # 문제 12)
 # 어떤 대학교를 졸업하려면 적어도 140학점을 이수해야
@@ -114,6 +154,12 @@ print(max(num))
 # 사용자에게 이수학점수와 평점을 물어보고 졸업 가능 여부를 출력하는 프로그램을 작성해보자.
 # credits = float( input("이수한 학점을 입력하세요 : "))
 # avg = float( input("평점을 입력하세요 : "))
+credits = float( input("이수한 학점을 입력하세요 : "))
+avg = float( input("평점을 입력하세요 : "))
+if credits >= 140 and avg >= 2 :
+    print("졸업가능")
+else:
+    print("졸업불가능")
 
 # 문제 13)
 # 1부터 10사이의 난수를 생성하고 숫자를 맞춰보자
@@ -126,11 +172,9 @@ print(answer)
 # input()함수를 이용하여 입력받은 숫자가 홀수인지 짝수인지를 판단하는 프로그램을 작성하라.
 # 홀수면 '홀수'라고 출력하고 짝수면 '짝수'라고 출력하시오
 # +, - , / , * , %(나머지 연산자)
-inputnumber = int(input("enter your digit(1 ~ 100) : "))
-print(inputnumber%2 == 0)
-
+inputnumber = int(input("enter your digit : "))
 if inputnumber%2 == 1 :
-    print("짝수")
+    print("홀수")
     pass
 else :
-    print("홀수")
+    print("짝수")
