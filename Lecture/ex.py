@@ -4,22 +4,36 @@
 # 단) 출력 값의 범위는 0 ~255이다
 # 예를 들어 결과값이 0보다 작은 값이되는 경우 0을 출력하고
 # 255보다 큰 값이 되는 경우 255을 출력해야한다.
+num = int(input("enter your number : "))
+if num - 20 < 0 :
+    print(0)
+elif num - 20 > 255 :
+    print(255)
+else :
+    print(num - 20)
 
 # 문제 2)
 # 사용자로부터 입력 받은 시간이 정각인지 판별하라.
 # 현재시간 : 02:00
 # 현재시간 : 03:10
+clock = int(input("enter the time now : "))
+if clock == '02:00' :
+    print("정각입니다.".format(clock))
+
+else :
+    print("정각이 아닙니다.".format(clock))
+
 
 # 문제 3)
 # 사용자로 입력받은 단어가 아래 fruit 리스트에 포함되어
 # 있는지를 확인하라.
 # 포함되었다면 "정답입니다"를 아닐 경우 "오답입니다" 출력하라.
 fruit_list = ["사과", "포도", "홍시"]
-a = '자두'
-if a in fruit_list :
-  print('정답입니다.'.format(a))
+user = input("enter your fruit : ")
+if user in fruit_list :
+    print("정답입니다.".format(user))
 else :
-  print('오답입니다.'.format(a))
+    print("오답입니다.".format(user))
 
 # 문제 4)
 # 투자 경고 종목 리스트가 있을 때
@@ -27,11 +41,11 @@ else :
 # 해당 종목이 투자 경고 종목이라면 '투자 경고 종목입니다'를
 # 아니면 "투자 경고 종목이 아닙니다."를 출력하는 프로그램을 작성하라.
 warn_investment_list = ["Microsoft", "Google", "Naver", "Kakao", "SAMSUNG", "LG"]
-a = 'daum'
-if a in warn_investment_list :
-    print('투자 경고 종목입니다.'.format(a))
+user = input("enter your investment : ")
+if user in warn_investment_list :
+    print('투자 경고 종목입니다.'.format(user))
 else :
-    print('투자 경고 종목이 아닙니다.'.format(a))
+    print('투자 경고 종목이 아닙니다.'.format(user))
 
 # 문제 5)
 # 아래와 같이 fruit 딕셔너리가 정의되어 있다.
@@ -39,13 +53,17 @@ else :
 # 아닐 경우 "오답입니다" 출력하라.
 fruit = {"봄" : "딸기", "여름" : "토마토", "가을" : "사과"}
 
+
 # 문제 6)
 # 사용자로부터 문자 한 개를 입력 받고,
 # 소문자일 경우 대문자로,
 # 대문자 일 경우, 소문자로 변경해서 출력하라.
 # hint -  islower() 함수는 문자의 소문자 여부를 판별합니다.
-a = 'apple'
-print()
+word = input("enter your word : ")
+if word.islower() :
+    print(word.upper())
+else :
+    print(word.lower())
 
 # 문제 7)
 # 점수 구간에 해당하는 학점이 아래와 같이 정의되어 있다.
@@ -55,6 +73,8 @@ print()
 # 21~40	 D
 # 0~20	 E
 # 사용자로부터 score를 입력받아 학점을 출력하라.
+score = input("enter your score : ")
+
 
 # 문제 8)
 # 사용자로부터 세 개의 숫자를 입력 받은 후
@@ -62,6 +82,8 @@ print()
 # input number1: 10
 # input number2: 9
 # input number3: 20
+num = [10,9,20]
+print(max(num))
 
 # 문제 9)
 # 휴대폰 번호 앞자리에 따라 통신사는 아래와 같이 구분된다. 사용자로부터 휴대전화 번호를 입력 받고, 통신사를 출력하는 프로그램을 작성하라.
@@ -104,3 +126,11 @@ print(answer)
 # input()함수를 이용하여 입력받은 숫자가 홀수인지 짝수인지를 판단하는 프로그램을 작성하라.
 # 홀수면 '홀수'라고 출력하고 짝수면 '짝수'라고 출력하시오
 # +, - , / , * , %(나머지 연산자)
+inputnumber = int(input("enter your digit(1 ~ 100) : "))
+print(inputnumber%2 == 0)
+
+if inputnumber%2 == 1 :
+    print("짝수")
+    pass
+else :
+    print("홀수")

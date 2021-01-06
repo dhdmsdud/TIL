@@ -19,7 +19,7 @@ print('slicing - ' , multituple[2:5] , type(multituple[2:]))
 multilist = list(multituple[2:])
 castingmultituple = tuple(multilist)
 
-# python sequence typw - range
+# python sequence type - range
 # 1~99까지의 정수 중 짝수만 저장된 튜플
 range01 = range(10)
 print(range01)
