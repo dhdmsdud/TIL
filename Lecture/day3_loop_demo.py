@@ -135,7 +135,7 @@ else :
 # 구구단 만들기
 for i in range(2, 10) :
     for j in range(1, 10) :
-        print('{}*{}={}'.format(i, j, (i*j)), end='\t')
+        print('{}*{}={}'.format(i, j, ((i*j)), end='\t'))
      print()
     if i == 5 :
         break
@@ -180,3 +180,48 @@ whilelist = ['foo', 'bar', 'baz']
 while whilelist :
     print(whilelist.pop())
 print('while end')
+
+# 난수를 발생시켜 횟수내에 맞추는 게임
+import random
+ran = random.random() # 0~1 사이의 난수를 발생시키는 실수형
+print(ran)
+
+ran = random.randint(0, 2) #정수형
+print(ran)
+
+#숫자범위 : 1-10 / 내가 입력한 숫자 > 난수 / 내가 입력한 숫자 < 난수
+randnum = random.randint(1, 10)
+while True :
+    usernum = int(input("예상숫자 입력 : "))
+    if randnum == usernum :
+        print("success")
+        break
+    elif randnum > usernum :
+        print("more")
+    else :
+        print("less")
+
+# 1-100사이의 난수 , 도전횟수 20회 제한 , 출력결과:정답시도횟수,정답
+randnum = random.randint(1, 100)
+tries = 1
+while tries <= 20 :
+    usernum = int(input("숫자입력 : "))
+    if randnum == usernum :
+        print("정답")
+        break
+    elif randnum > usernum :
+        print("more")
+    else:
+        print("less")
+    tries += 1
+if usernum == randnum :
+    print("정답 시도횟수{}".format(tries))
+    print("정답{}".format(randnum))
+else :
+    print("정답{}".format(randnum))
+
+# random.choices()
+# 모집단 dateset에서 k개의 데이터를 샘플링
+dataset = list(range(1, 1001))
+train = random.choices(dataset , k=10)
+print(train)
