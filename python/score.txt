@@ -1,0 +1,4 @@
+math : 100
+english : 100
+science : 98
+cording : 100
