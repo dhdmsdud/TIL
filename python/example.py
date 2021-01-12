@@ -48,6 +48,30 @@ word.show_question()
 word.check_answer(int(input("==> ")))
 
 # 행맨퀴즈
-import random
-word_list = ["cherry", "mango", "pineapple", "strawberry", "melon"]
-print(random.choice(word_list), "-" * word_list.count(word_list))
+from random import *
+words = ["cherry", "mango", "pineapple", "strawberry", "melon"]
+word = choice(words)
+print("answer : " + word)
+letters = ""
+
+while True:
+    succeed = True
+    print()
+    for w in word :
+        if w in letters:
+            print(w, end=" ")
+        else:
+            print("_", end=" ")
+            succeed = False
+    print()
+
+    if succeed:
+        print("success")
+        break
+    letter = input("input letter > ")
+    if letter not in letters:
+        letters += letter
+    if letter in word:
+        print("correct")
+    else:
+        print("wrong")
