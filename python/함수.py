@@ -82,16 +82,3 @@ def std_wight(gender, height):
         print("키{}cm {}의 표준체중은 {}입니다.".format(height, gender, height/100 * height/100 *22))
 
 std_wight("여자", 155)
-
-
-
-
-
-
-
-
-
-
-
-
-
