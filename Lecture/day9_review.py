@@ -126,3 +126,51 @@ def address_function():
             line = file.readline()
 
 address_function()
+
+# csv, excel 파일을 읽기
+# file= 을 쓰지않고 바로 파일위치 입력
+import  pandas as pd # pandas 라이브러리를 사용해야함!
+
+bmi_data = pd.read_csv("./word/service_bmi.csv", encoding="utf8")
+print(bmi_data.info())
+print(bmi_data.head()) # 최상위 5개의 데이터 정보만 보여짐
+print(bmi_data.tail()) # 최하위 5개의 데어터 정보만 보여짐
+
+# 속성에 대한 접근 : series ->list와 유사
+print(bmi_data.height, type(bmi_data.height)) # 방법1)
+print(bmi_data["height"]) # 방법2)
+
+# 키, 몸무게 평균
+print(sum(bmi_data.height)/len(bmi_data.height), sum(bmi_data.weight)/len(bmi_data.weight))
+print(sum(bmi_data["height"])/len(bmi_data["height"]), sum(bmi_data["weight"])/len(bmi_data["weight"]))
+
+# 키, 몸무게 최대 / 최소
+# 표현식을 두개 써야함!, 하나만 쓰면 에러
+print(max(bmi_data.height), max(bmi_data.weight))
+print(min(bmi_data.height), min(bmi_data.weight))
+
+# label 빈도수
+label_count = {}
+for label in bmi_data.label:
+    label_count[label] = label_count.get(label, 0)+1
+    print(label_count)
+
+# spam_data.csv -> encoding='utf8'이 아닌 'ms949'를 출력
+# pandas 에서는 head를 무조건 첫번째 줄로 인식하기 때문에 header="None"으로 잡아줌!
+import pandas as pd
+spam_data = pd.read_csv("./word/spam_data.csv", header=None, encoding="ms949")
+print(spam_data)
+print(spam_data.info())
+print(spam_data.head())
+print(spam_data.tail())
+
+# spam_data 타겟과 텍스트
+target = spam_data[0]
+print(target, type(target))
+text = spam_data[1]
+print(text, type(text))
+
+# spam = 1, ham = 0 새로운 타겟 만들기
+# list comprehension 에서 else 까지 써야할 때는 if가 앞에 위치!
+target = [1 if t == "spam" else 0 for t in target]
+print(target)
