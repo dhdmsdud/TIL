@@ -174,3 +174,76 @@ print(text, type(text))
 # list comprehension 에서 else 까지 써야할 때는 if가 앞에 위치!
 target = [1 if t == "spam" else 0 for t in target]
 print(target)
+
+# code clean : 문자열에 대한 정규표현식을 이용하여 문자를 제거하는 작업
+# 텍스트 전처리 (특수문자, 숫자, 공백, 영문제거)->한글만 추출
+# 정규표현식 -> import re
+import re
+text = spam_data[1]
+print(text, type(text))
+
+def clean_text(str):
+    for text in str:
+        text = re.sub('[,.?!:;]', ' ', text)
+        text = re.sub('[0-9a-zA-Z]', ' ', text)
+        text = ' '.join(text.split())
+        print(text)
+
+clean_text(text)
+
+# sam_kospi.xlsx 파일 입출력
+# parse() : ()안에 엑셀파일의 시트명을 입력
+# from satistics import * : 계산모듈
+import pandas as pd
+kospi_data = pd.ExcelFile("./word/sam_kospi.xlsx")
+kospi = kospi_data.parse("sam_kospi")
+print(kospi.info())
+
+from statistics import *
+print(mean(kospi.High)) # sam_kospi의 High 평균
+print(mean(kospi.Low)) # sam_kospi의 Low 평균
+
+# json 파일 입출력 : 네트워크상에서 표준으로 사용되는 파일형식
+# 구성 : {key : value}
+# encoding : python(dict, list) -> json 문자열(json file) / dumps()
+# decoding : json 문자열(json file) -> python(dict, list) / loads()
+# import json
+
+# python ==> json으로 encoding ==> dumps()
+import json
+ruby = {"name" : "은영", "age" : 25, "hobby" : "축구"}
+ruby_json = json.dumps(ruby)
+print(ruby_json, type(ruby_json))
+
+animal = {"dog" : "개", "cat" : "고양이", "rabbit": "토끼"}
+animal_json = json.dumps(animal)
+print(animal_json)
+
+fruits = {"apple" : "사과", "pineapple" : "파일애플", "mango" : "망고"}
+fruits_json = json.dumps(fruits)
+print(fruits_json)
+
+# json ==> python으로 decoding ==> loads()
+ruby_python = json.loads(ruby_json)
+print(ruby_python)
+
+animal_python = json.loads(animal_json)
+print(animal_python)
+
+fruits_python = json.loads(fruits_json)
+print(fruits_python)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
