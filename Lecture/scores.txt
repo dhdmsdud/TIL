@@ -1,0 +1,4 @@
+kor : 100
+eng : 100
+math : 100
+science : 100
