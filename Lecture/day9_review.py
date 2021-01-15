@@ -197,7 +197,7 @@ clean_text(text)
 import pandas as pd
 kospi_data = pd.ExcelFile("./word/sam_kospi.xlsx")
 kospi = kospi_data.parse("sam_kospi")
-print(kospi.info())
+print(kospi.info(), kospi)
 
 from statistics import *
 print(mean(kospi.High)) # sam_kospi의 High 평균

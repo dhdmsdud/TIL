@@ -69,8 +69,8 @@ import pandas as pd
 
 bmi_data = pd.read_csv(file="./word/service_bmi.csv", encoding="utf8")
 print(bmi_data.info())
-print(bmi_data.head())
-print(bmi_data.tail())
+print(bmi_data.head()) # 최상위 5개의 데이터 정보만 보여짐
+print(bmi_data.tail()) # 최하위 5개의 데어터 정보만 보여짐
 
 # 속성에 대한 접근 : series
 print(bmi_data.height, type(bmi_data.height))
@@ -110,17 +110,17 @@ print(target)
 # [abc] : a또는 b또는 c로 시작하는 문자와 매치
 # [0-5] : 0이상 5이하 / [^0-5] : 0이상 5이하와 매칭되는 반대(not) / ^[0-5] : 0이상 5이하로 시작되는 문자와 매치
 # 문자클래스 : \d(숫자의 자릿수) \D(문자매칭의 자릿수) \w(문자 + 숫자) \W(문자 + 숫자가 아닌 문자매치) \s(공백)
-# 010-0000-0000 -> ^\d{3}-\d{4}-\d{4}
 # sub()
 # match()
 # search()
 # findall()
 # finditer()
+# 010-0000-0000 -> ^\d{3}-\d{4}-\d{4}
 import re
 
-# p = re.compile('[a-z]+')
-# match = p.match('python') # 대소문자 구별
-# print(match)
+p = re.compile('[a-z]+')
+match = p.match('python') # 대소문자 구별
+print(match)
 
 # 텍스트 전처리 (특수문자, 숫자, 공백, 영문제거)->한글만 추출
 text = spam_data[1]
