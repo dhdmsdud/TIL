@@ -4,22 +4,24 @@ from statistics import *
 def load_data():
     with open(file="./word/mpg.txt", mode="r", encoding="utf8") as file:
         keys = file.readline().split(",")
-        # print(keys)
+        # print("debug : ", keys)
         car_list = []
         for line in file.readlines():
             values = line.split(",")
             dic = {}
             for idx in range(len(values)):
                 dic[keys[idx]] = values[idx]
-            car_list.append(dict)
-            # print(car_list)
+            car_list.append(dic)
+            # print("debug : ", car_list)
     return car_list
 
 
 def q01():
-    displ_data = load_data()
-    for obj in displ_data:
-        print(displ_data)
+    dataset = load_data()
+    for obj in dataset:
+        # print("debug : ", obj)
+        # print(obj["displ"])
+        if int(obj["displ"]) <= 4:
 
 q01()
 # 2. 자동차 제조 회사에 따라 도시 연비가 다른지 알아보려고 한다.
