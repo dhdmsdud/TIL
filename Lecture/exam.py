@@ -1,25 +1,25 @@
-# 1. displ(배기량) !2번째! 이 4 이하인 자동차와 5 이상인 자동차 중
+# 1. displ(배기량)이 4 이하인 자동차와 5 이상인 자동차 중
 # 어떤 자동차의 hwy(고속도로 연비)가 평균적으로 더 높은지 확인하세요.
 from statistics import *
 def load_data():
     with open(file="./word/mpg.txt", mode="r", encoding="utf8") as file:
         keys = file.readline().split(",")
-        print(keys)
+        # print(keys)
         car_list = []
         for line in file.readlines():
             values = line.split(",")
-            dict = {}
+            dic = {}
             for idx in range(len(values)):
-                dict[keys[idx]] = values[idx]
+                dic[keys[idx]] = values[idx]
             car_list.append(dict)
-            print(car_list)
+            # print(car_list)
     return car_list
-load_data()
+
 
 def q01():
     displ_data = load_data()
     for obj in displ_data:
-
+        print(displ_data)
 
 q01()
 # 2. 자동차 제조 회사에 따라 도시 연비가 다른지 알아보려고 한다.
