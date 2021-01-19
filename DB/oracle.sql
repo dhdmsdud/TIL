@@ -1,7 +1,10 @@
 --select구문
---SELECT [특정컬럼 | *(전체컬럼) | 표현식 | DISTINCT | AS 컬럼명칭]
---FROM    테이블이름;
---WHERE   조건식(행의 제한)
+--SELECT   [특정컬럼 | *(전체컬럼) | 표현식 | DISTINCT | AS 컬럼명칭]
+--FROM     테이블이름;
+--WHERE    조건식(행의 제한)
+--GROUP BY 기준컬럼
+--HAVING   조건식
+--ORDER BY 기준컬럼; -->별칭, 기술순서로 변경 가능
 
 --전체컬럼EMPLOYEE
 SELECT *
@@ -129,10 +132,20 @@ SELECT EMP_NAME,
 FROM EMPLOYEE
 WHERE DEPT_ID IN('20','90') AND SALARY > 3000000;
 
+--부서번호가 50이거나 존재하지 않는 사원의 이름, 급여 조회
+--높은 급여순으로 보려면 ORDER BY [기준컬럼][ASC|DESC]
+SELECT  EMP_NAME,
+        SALARY
+FROM    EMPLOYEE
+WHERE   DEPT_ID = '50' OR DEPT_ID IS NULL
+ORDER BY    SALARY DESC;
 
-
-
-
+--입사일이 03/01/01일 이후 입사자들의 이름, 입사일, 부서번호 조회
+--부서번호가 높은순으로 정렬, 같다면 입사일이 빠른순으로 정렬, 같다면 이름이 빠른순으로 정렬
+SELECT  EMP_NAME, HIRE_DATE, DEPT_ID
+FROM    EMPLOYEE
+WHERE   HIRE_DATE > TO_DATE('03/01/01', 'RR/MM/DD')
+ORDER BY DEPT_ID DESC NULLS LAST, HIRE_DATE, EMP_NAME; --NULLS LAST : NULL값을 맨 뒤로 정렬
 
 
 
