@@ -27,7 +27,7 @@ SELECT      DEPT_ID,
             JOB_ID,
             ROUND(AVG(SALARY), -5) AS 급여평균
 FROM        EMPLOYEE
-GROUP BY    ROLLUP(DEPT_ID, JOB_ID)
+GROUP BY    ROLLUP(DEPT_ID, JOB_ID) -- ROLLUP : 기준이 되는 값에 대한 소계가 나옴
 --HAVING  AVG (SALARY) > 3000000
 ORDER BY    DEPT_ID;
 
@@ -52,17 +52,4 @@ GROUP BY  CASE SUBSTR(EMP_NO,8,1)
             WHEN '3' THEN '남자'
             ELSE '여자'
         END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ORDER BY 2 DESC;
