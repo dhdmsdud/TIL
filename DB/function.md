@@ -123,6 +123,10 @@ SELECT TO_CHAR( SYSDATE, 'Year, Q' ) FROM DUAL;            -->Twenty Twenty one,
 
 `TO_DATE` : `CHARACTER 타입을 DATE 타입으로 변환`하는 함수
 
+- RR 날짜 형식 : '지정한 년도'와 '현재 년도'에 따라 반환하는 '세기' 값이 달라짐
+
+![](Single-Row Funtion.assets/RR.png)
+
 ```python
 SELECT TO_DATE( '2021/01/19', 'YYYYMMDD') FROM DUAL;                      -->21/01/19
 SELECT TO_CHAR( '20210119', 'YYYY, MON') FROM DUAL;                       -->N/A(오류) 
@@ -133,3 +137,30 @@ SELECT TO_CHAR( TO_DATE( '980630', 'YYMMDD' ), 'YYYY.MM.DD') FROM DUAL;   -->209
 
 ```
 
+`TO_NUMBER`: `CHARACTER 타입을 NUMBER 타입으로 변환`하는 함수
+
+### 단일행 기타 함수
+
+`NVL`: `NULL을 지정한 값으로 변환`하는 함수
+
+`DECODE`: `SELECT 구문으로 IF-ELSE 논리를 제한적으로 구현`한 `오라클 DBMS 전용 함수`
+
+`CASE`: DECODE 함수와 유사한 `ANSI 표준 구문`
+
+중첩함수 : 중첩사용 가능
+
+- 가장 안쪽의 함수부터 바깥 쪽 방향으로 차례대로 실행
+- 먼저 실행된 함수의 반환 값이 바깥 쪽 함수의 입력 값이 됨 
+- 반환되는 함수 결과 데이터 타입에 주의
+
+
+
+# GROUP FUNCTION
+
+그룹함수
+
+`AVG` : 입력 값의 `평균을 계산`하여 반환하는 함수
+
+`MIN / MAX` : `최솟 값/ 최대 값`을 반환하는 함수
+
+`COUNT` : `Result Set의 행 수`를 반환하는 함수
