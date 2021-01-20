@@ -17,9 +17,8 @@ WHERE   PROFESSOR_NAME NOT LIKE '___';
 --단 이때 나이가 적은 사람에서 많은 사람 순서로 화면에 출력되도록 만드시오. 
 --(단, 교수 중 2000년 이후 출생자는 없으며 출력 헤더는 "교수이름", "나이"로 한다. 나이는 ‘만’으로 계산한다.) 
 SELECT  PROFESSOR_NAME 교수이름,
-        TO_CHAR(SYSDATA, 'YYYY') - TO_CHAR(SUBSTR(PROFESSOR_SSN, 8, 1))
-FROM    TB_PROFESSOR;
-WHERE   SUBSTR(PROFESSOR_SSN, 8, 1)        
+        TO_DATE(SYSDATA, 'YYYY') - TO_DATE(SUBSTR(PROFESSOR_SSN, 1, 2), 'YYYY') AS 나이
+FROM    TB_PROFESSOR;  
 
 --4. 교수들의 이름 중 성을 제외한 이름만 출력하는 SQL 문장을 작성하시오. 
 --출력 헤더는 ?이름? 이 찍히도록 한다. 
@@ -27,11 +26,14 @@ WHERE   SUBSTR(PROFESSOR_SSN, 8, 1)
 SELECT  SUBSTR(PROFESSOR_NAME,2,3) AS 이름
 FROM    TB_PROFESSOR;
 
---5. 기술대학교의 재수생 입학자를 구하려고 한다. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+--5. 기술대학교의 재수생 입학자를 구하려고 한다.
 --이때, 19살에 입학하면 재수를 하지 않은 것으로 간주한다.
-SELECT  STUDENT_NO,
-        ADD MONTH(STUDENT_SSN, 228)
-FROM    TB_STUDENT;
+SELECT  STUDENT_NAME,
+        TO_CHAR(TO_DATE(SUBSTR(STUDENT_SSN,1,6), 'RRMMDD'), 'YYYY/MM/DD') AS 출생일,
+        TO_CHAR(ENTRANCE_DATE, 'RRRR/MM/DD') AS 입학일,
+        TRUNC(MONTHS_BETWEEN(ENTRANCE_DATE, TO_DATE(SUBSTR(STUDENT_SSN,1,6), 'RRMMDD')) /12) AS 나이
+FROM    TB_STUDENT
+WHERE   TRUNC(MONTHS_BETWEEN(ENTRANCE_DATE, TO_DATE(SUBSTR(STUDENT_SSN,1,6),'RRMMDD')) /12) > 19;
 
 --6. 2020 년 크리스마스는 무슨 요일인가?
 SELECT  TO_CHAR(TO_DATE('20201225', 'YYYYMMDD'), 'DAY')
@@ -61,25 +63,40 @@ FROM    TB_GRADE
 WHERE   STUDENT_NO = 'A517178';
 
 --10. 학과별 학생수를 구하여 "학과번호", "학생수(명)" 의 형태로 헤더를 만들어 결과값이 출력되도록 하시오.!!!!!!!!!!!!!!!!!!!!!!
-SELET   DEPARTMENT_NO AS 학과번호
-        COUNT DEPARTMENT_NO
-FROM    TB_STUDENT;
+SELET   DEPARTMENT_NO AS 학과번호,
+        COUNT(*) AS "학생수(명)"
+FROM    TB_STUDENT
+GROUP BY DEPARTMENT_NO
 
 --11. 지도 교수를 배정받지 못한 학생의 수는 몇 명 정도 되는 알아내는 SQL 문을 작성하시오.
 SELECT  COUNT(*) - COUNT(COACH_PROFESSOR_NO)
 FROM    TB_STUDENT;
 
---12. 학번이 'A112113'인 김고운 학생의 년도 별 평점을 구하는 SQL 문을 작성하시오. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--12. 학번이 'A112113'인 김고운 학생의 년도 별 평점을 구하는 SQL 문을 작성하시오.
 --단, 이때 출력 화면의 헤더는 "년도", "년도 별 평점" 이라고 찍히게 하고, 점수는 반올림하여 소수점 이하 한 자리까지 표시.
-SELECT  TO_CHAR(TO_DATE(TERM_NO), 'YYYY') AS 년도,
-        ROUND(AVG(POINT), 1) AS "년도별 평점"
+SELECT  SUBSTR(TERM_NO, 1, 4) AS 년도,
+        ROUND(AVG(POINT),1) AS "년도 별 평점"
 FROM    TB_GRADE
-WHERE   STUDENT_NO = 'A112113'
+WHERE   STUDENT_NO='A112113'
+GROUP BY SUBSTR(TERM_NO, 1, 4)
 
 --13. 학과 별 휴학생 수를 파악하고자 한다. 
 --학과 번호와 휴학생 수를 표시하는 SQL 문장을 작성하시오. 
+SELECT  DEPARTMENT_NO AS 학과코드명,
+        SUM(CASE WHEN ABSENCE_YN='Y' THEN 1 ELSE 0 END) AS 휴학생
+FROM    TB_STUDENT
+GROUP BY DEPARTMENT_NO
 
 --14. 대학교에 다니는 동명이인(同名異人) 학생들의 이름을 찾고자 한다.
+SELECT  STUDENT_NAME,
+        COUNT(STUDENT_NAME)-1
+FROM    TB_STUDENT
+GROUP BY STUDENT_NAME
 
 --15. 학번이 'A112113' 인 김고운 학생의 년도, 학기 별 평점과 년도 별 누적 평점 , 총 평점을 구하는 SQL 문을 작성하시오. 
 --(단, 평점은 소수점 1 자리까지 반올림하여 표시)
+SELECT  SUBSTR(TERM_NO, 1, 4) AS 년도,
+        ROUND(AVG(POINT),1) AS "년도 별 평점"
+FROM    TB_GRADE
+WHERE   STUDENT_NO='A112113'
+GROUP BY SUBSTR(TERM_NO, 1, 4)
