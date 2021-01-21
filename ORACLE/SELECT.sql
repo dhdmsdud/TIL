@@ -1,8 +1,8 @@
 --select구문
---SELECT   [특정컬럼 | *(전체컬럼) | 표현식 | DISTINCT | AS 컬럼명칭]
---FROM     테이블이름;
---WHERE    조건식(행의 제한)
---GROUP BY 기준컬럼
+--SELECT   [특정컬럼 | *(전체컬럼) | 표현식SELECT-(SUBQUERY) | DISTINCT | AS 컬럼명칭]
+--FROM     [테이블이름 | JOIN | SELECT-(SUBQUERY)]
+--WHERE    조건식(행의 제한) |  SELECT-(SUBQUERY)
+--GROUP BY 기준컬럼 |  SELECT-(SUBQUERY)
 --HAVING   조건식
 --ORDER BY 기준컬럼; -->별칭, 기술순서로 변경 가능
 
