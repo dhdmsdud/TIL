@@ -1,0 +1,238 @@
+--SET OPERATOR
+--UNOIN : 중복포함 X
+SELECT EMP_ID, ROLE_NAME
+FROM    EMPLOYEE_ROLE
+UNION
+SELECT  EMP_ID, ROLE_NAME
+FROM    ROLE_HISTORY;
+
+--UNION ALL : 중복포함O
+SELECT EMP_ID, ROLE_NAME
+FROM    EMPLOYEE_ROLE
+UNION ALL
+SELECT  EMP_ID, ROLE_NAME
+FROM    ROLE_HISTORY;
+
+--INTERSECT : 교집합
+SELECT EMP_ID, ROLE_NAME
+FROM    EMPLOYEE_ROLE
+INTERSECT
+SELECT  EMP_ID, ROLE_NAME
+FROM    ROLE_HISTORY;
+
+--MINUS : 첫번째 쿼리에서 두번째 쿼리를 뺀 차집합
+SELECT EMP_ID, ROLE_NAME
+FROM    EMPLOYEE_ROLE
+MINUS
+SELECT  EMP_ID, ROLE_NAME
+FROM    ROLE_HISTORY;
+
+--더미컬럼 : 쿼리의 SELECT목록의 수는 동일해야 하므로 사용가능
+SELECT  EMP_NAME, JOB_ID, HIRE_DATE
+FROM    EMPLOYEE
+WHERE   DEPT_ID='20'
+UNION
+SELECT  DEPT_NAME, DEPT_ID, NULL
+FROM    DEPARTMENT
+WHERE   DEPT_ID='20';
+
+--UNION을 이용해 50번 부서원을 관리자와 직원으로 구분하여 표현
+SELECT  *
+FROM    EMPLOYEE
+WHERE   DEPT_ID='50';
+
+SELECT  EMP_NAME, EMP_ID, '직원' AS 구분
+FROM    EMPLOYEE
+WHERE   MGR_ID IS NOT NULL AND DEPT_ID='50'
+UNION  
+SELECT  EMP_NAME, EMP_ID, '관리자' AS 구분
+FROM    EMPLOYEE
+WHERE   MGR_ID IS NULL AND DEPT_ID='50'
+ORDER BY 3;
+
+--직급(JOB_TITLE)이 대리 또는 사원 직원정보를 조회(이름, 직급)
+--UNION
+SELECT  EMP_NAME, JOB_TITLE
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   JOB_TITLE='대리'
+UNION
+SELECT  EMP_NAME, JOB_TITLE
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   JOB_TITLE='사원'
+ORDER BY 2;
+
+--SUBQUERY : 하나의 쿼리가 다른쿼리에 포함
+--나승원 이름을 이용해 직급이 동일하고, 나승원보다 급여가 많은 사원의 이름, 직급, 급여를 조회
+SELECT  JOB_ID
+FROM    EMPLOYEE
+WHERE   EMP_NAME='나승원';
+
+SELECT  SALARY
+FROM    EMPLOYEE
+WHERE   EMP_NAME='나승원';
+
+SELECT  EMP_NAME, JOB_ID, SALARY
+FROM    EMPLOYEE
+WHERE   JOB_ID = (SELECT  JOB_ID
+                  FROM    EMPLOYEE
+                  WHERE   EMP_NAME='나승원')
+AND SALARY > (SELECT  SALARY
+              FROM    EMPLOYEE
+              WHERE   EMP_NAME='나승원');
+              
+--최소급여를 받는 사원의 이름, 직급, 급여조회
+SELECT  MIN(SALARY)
+FROM    EMPLOYEE;
+
+SELECT  EMP_NAME, JOB_ID, SALARY
+FROM    EMPLOYEE
+WHERE   SALARY=(SELECT  MIN(SALARY)
+                FROM    EMPLOYEE);
+
+--부서별 급여총합이 가장 많은 부서의 이름과 급여 총 합을 조회
+SELECT  MAX(SUM(SALARY))
+FROM    EMPLOYEE
+GROUP BY    DEPT_ID;
+
+SELECT  DEPT_NAME,
+        SUM(SALARY)
+FROM    EMPLOYEE
+JOIN    DEPARTMENT USING(DEPT_ID)
+GROUP BY DEPT_NAME
+HAVING  SUM(SALARY) = (SELECT  MAX(SUM(SALARY))
+                        FROM    EMPLOYEE
+                        GROUP BY    DEPT_ID);
+
+--다중행 서브쿼리 : IN, NOT IN, ANY, ALL
+SELECT  EMP_ID, 
+        EMP_NAME, 
+        '관리자' AS 구분
+FROM    EMPLOYEE
+WHERE   EMP_ID IN (SELECT MGR_ID FROM EMPLOYEE)
+UNION
+SELECT  EMP_ID, 
+        EMP_NAME, 
+        '직원' AS 구분
+FROM    EMPLOYEE
+WHERE   EMP_ID NOT IN (SELECT MGR_ID FROM EMPLOYEE
+                        WHERE MGR_ID IS NOT NULL); --다중행 서브쿼리에서 NOT IN연산자에 NULL이 있으면 전체결과는 무조건 NULL로 나옴!
+
+--위 구현코드를 UNION을 사용하지 않고 다른 방식으로 구현
+--IF ~ ELSE(DECODE, CASE ~ END)
+SELECT  EMP_NAME,
+        EMP_ID,
+        CASE 
+        WHEN MGR_ID IS NULL THEN '관리자'
+        ELSE '직원'
+        END AS 구분
+FROM    EMPLOYEE;
+
+SELECT  EMP_ID,
+        EMP_NAME,
+        CASE WHEN EMP_ID IN(SELECT MGR_ID FROM EMPLOYEE)THEN '관리자' ELSE '직원' END
+FROM    EMPLOYEE;
+
+SELECT  EMP_ID,
+        EMP_NAME,
+        DECODE(MGR_ID, NULL, '관리자', '직원') AS 구분
+FROM    EMPLOYEE;
+
+--다중행 서브쿼리 ANY, ALL
+-- < ANY : 비교대상 중 최대값 보다 작음
+-- > ANY : 비교대상 중 최솟값 보다 큼
+-- < ALL : 비교대상 중 최소값 보다 작음
+-- > ALL: 비교대상 중 최대값 보다 큼
+SELECT  EMP_NAME,
+        SALARY
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   JOB_TITLE='대리'
+AND     SALARY > ANY(SELECT  SALARY
+                     FROM    EMPLOYEE
+                     JOIN    JOB USING(JOB_ID)
+                     WHERE   JOB_TITLE='과장');
+
+SELECT  EMP_NAME,
+        SALARY
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   JOB_TITLE='대리'
+AND     SALARY < ANY(SELECT  SALARY
+                     FROM    EMPLOYEE
+                     JOIN    JOB USING(JOB_ID)
+                     WHERE   JOB_TITLE='과장');
+
+SELECT  EMP_NAME,
+        SALARY
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   JOB_TITLE='대리'
+AND     SALARY > ALL(SELECT  SALARY
+                     FROM    EMPLOYEE
+                     JOIN    JOB USING(JOB_ID)
+                     WHERE   JOB_TITLE='과장');
+
+SELECT  EMP_NAME,
+        SALARY
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   JOB_TITLE='대리'
+AND     SALARY < ALL(SELECT  SALARY
+                     FROM    EMPLOYEE
+                     JOIN    JOB USING(JOB_ID)
+                     WHERE   JOB_TITLE='과장');
+
+--자신의 직급(JOB_ID)의 평균급여를 받는 직원
+SELECT  TRUNC(AVG(SALARY), -5)
+FROM    EMPLOYEE
+GROUP BY    JOB_ID;
+
+SELECT  JOB_TITLE, TRUNC(AVG(SALARY), -5)
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+GROUP BY JOB_TITLE;
+
+--다중행 다중열 서브쿼리에는 ()필수!
+SELECT  EMP_NAME,
+        JOB_TITLE,
+        SALARY
+FROM    EMPLOYEE
+JOIN    JOB USING(JOB_ID)
+WHERE   (JOB_ID, SALARY) IN (SELECT  JOB_ID, TRUNC(AVG(SALARY), -5)
+                             FROM    EMPLOYEE
+                             GROUP BY    JOB_ID);
+
+--FROM절에 서브쿼리
+SELECT  EMP_NAME, JOB_TITLE, SALARY
+FROM    (SELECT JOB_ID, TRUNC(AVG(SALARY), -5) AS JOBAVG
+         FROM    EMPLOYEE
+         GROUP BY    JOB_ID) V
+JOIN    EMPLOYEE E ON(V.JOB_ID=E.JOB_ID AND V.JOBAVG=E.SALARY)
+JOIN    JOB J ON(E.JOB_ID=J.JOB_ID); 
+
+--Correlated Subquery :상관관계 서브쿼리
+SELECT  EMP_NAME, JOB_TITLE, SALARY
+FROM    EMPLOYEE E
+JOIN    JOB J ON(E.JOB_ID = J.JOB_ID)
+WHERE   SALARY = (SELECT    TRUNC(AVG(SALARY), -5)
+                  FROM      EMPLOYEE
+                  WHERE     JOB_ID = E.JOB_ID);
+
+--EXISTS, NOT EXISTS
+SELECT  EMP_ID, 
+        EMP_NAME, 
+        '관리자' AS 구분
+FROM    EMPLOYEE E
+WHERE   EXISTS (SELECT  NULL 
+                FROM    EMPLOYEE
+                WHERE   E.EMP_ID=MGR_ID)
+UNION
+SELECT  EMP_ID, 
+        EMP_NAME, 
+        '직원' AS 구분
+FROM    EMPLOYEE E2
+WHERE   NOT EXISTS (SELECT  NULL 
+                FROM    EMPLOYEE
+                WHERE   E2.EMP_ID=MGR_ID);
