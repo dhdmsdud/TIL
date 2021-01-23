@@ -119,3 +119,33 @@ WHERE   PNAME = '빼빼로';
 UPDATE  PRODUCTS
 SET     STOCK = 500
 WHERE   PNAME = '코카콜라';
+
+--10. 다음과 같은 전체 주문 목록을 출력하는 문장을 작성하시오.
+SELECT  ORDER_DATE, CNAME, ADDRESS, PHONE, STATUS, PNAME, COST, QTY, COST*QTY
+FROM    CUSTOMERS 
+JOIN    ORDERS USING(CNO)
+JOIN    ORDER_DETAIL USING(ORDER_NO)
+JOIN    PRODUCTS USING(PNO);
+
+--11. 다음과 같이 일별 매출 목록을 출력하는 문장을 작성하시오. 
+SELECT  ORDER_DATE, SUM(COST*QTY)
+FROM    ORDERS
+JOIN    ORDER_DETAIL USING(ORDER_NO)
+GROUP BY    ORDER_DATE;
+
+--12. 다음과 같은 신규 상품 정보를 products 테이블에 입력하시오. 
+--“제품번호는 1007, 상품명은 목캔디, 단가는 3000원, 재고는 500개이다.” 
+INSERT INTO PRODUCTS VALUES(1007, '목캔디', 300, 500);
+UPDATE  PRODUCTS
+SET     COST = 3000
+WHERE   PNAME = '목캔디'
+--13. 다음과 같은 4번 주문 정보를 입력하고, 재고를 적절히 수정하시오. 
+--주문 정보를 입력하고, 10번 문제에서 작성한 문장으로 검색하면 다음과 같다.  
+--“최진국(103)이 오늘 목캔디(1007)를 개당 3000원에 200개 주문하였으며, 
+--배송지의 주소는 제주 동광양이며, 연락처는 352-4657이고, 결제가 완료된 상태이다.” 
+INSERT INTO ORDERS VALUES(4, SYSDATE, '제주 동광양', '352-4657', '결제완료', 103);
+INSERT INTO ORDER_DETAIL VALUES(4, 1007, 200, 3000);
+
+UPDATE  PRODUCTS
+SET     STOCK = 300
+WHERE   PNAME = '목캔디';
