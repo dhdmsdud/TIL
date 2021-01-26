@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <div id="msg"></div><br/>
+    <button id="btn">click</button><br/>
+    <button id="clrbtn">clearbtn</button><br/>
+    <input type="text" name="id" id="id"/><br/>
+    <button id="searchbtn">searchbtn</button><br/>
+
+    <button class="ajaxbtn">ajaxbtn</button><br/>
+    <button class="ajaxparambtn">ajaxparambtn</button><br/>
+    <input type="text" name="user_id" id="user_id"/><br/>
+    <input type="password" name="user_pwd" id="user_pwd"/>
+
+    <table border="1">
+        <tr><th>ID</th><th>PWD</th></tr>
+        <tbody id = "tbody">
+            <tr><td>ruby</td><td>ruby</td></tr>
+            <tr><td>admin</td><td>admin</td></tr>
+        </tbody>
+    </table>
+
+    <hr/>
+    <label>제조사</label>
+    <select id ="maker">
+        <option>선택하세요</option>
+        <option>BMW</option>
+        <option>AUDI</option>
+        <option>BENZ</option>
+    </select>
+    <label>모델</label>
+    <select id="model">
+        <option>선택하세요</option>
+
+    </select>
+
+    <a href="{% url 'chart' %}">chart</a>
+
+    <script>
+        obj = {id : 'multicampus', pwd : 'multicampus'}
+
+        list = [{id : 'multicampus01', pwd : 'multicampus01'},
+                {id : 'multicampus02', pwd : 'multicampus02'}]
+
+        bmwAry = ['320d', '520d', '640d', '740d']
+        audiAry = ['a4', 'a6', 'a8', 'r8']
+        benzAry = ['c200', 'e220', 's500', 's600']
+        function display(ary) {
+            txt = '<option>선택해주세요</option>' ;
+            $.each(ary, function(idx, data) {
+                txt += '<option>'+data+'</option>' ;
+            })
+            $('#model').empty().html(txt)
+        }
+        $(document).ready(function() {
+            $('#maker').change(function() {
+                maker = $('#maker').val()
+                if (maker=='BMW') {
+                    display(bmwAry)
+                }
+                if (maker=='AUDI') {
+                    display(audiAry)
+                }
+                if (maker=='BENZ') {
+                    display(benzAry)
+                }
+                })
+            $('#searchbtn').click(function() {
+                    txt = ""
+
+                    $.each(list, function(idx, data){
+                        txt += '<tr><td>'+data.id+'</td><td>'+data.pwd+'</td></tr>'
+                        })
+                    //append(), html(), text()
+                    $('#tbody').empty().html(txt)
+
+                    })
+
+            $('#msg').text('페이지 로딩시 해당 영역에 텍스트 입력')
+            $('#btn').click(function() {
+                param = $('#id').val()
+                alert(param)
+                })
+                $('#clrbtn').click(function() {
+                    $('#msg').empty()
+                    $('#msg').html('<bold>데이터를 바꿈</bold>')
+                })
+                $('.ajaxbtn').click(function() {
+                    //alert('ajax')
+                    $.ajax({
+                        url : "{% url 'nonParamAjax'%}",
+                        type : 'post' ,
+                        data : { 'csrfmiddlewaretoken' : '{{csrf_token}}'},
+                        dataType : 'json',
+                        success : function(list) {
+                            txt = ""
+                            $.each(list, function(idx, data) {
+                                txt += '<tr><td>'+data.id+'</td><td>'+data.pwd+'</td></tr>'
+                            })
+                            $('#tbody').empty().append(txt)
+                        }
+                    })
+                })
+
+        })
+
+         $('.ajaxparambtn').click(function() {
+                    $.ajax({
+                        url : "{% url 'paramAjax'%}",
+                        type : 'post' ,
+                        data : { 'csrfmiddlewaretoken' : '{{csrf_token}}',
+                                  user_id : $('#user_id').val(),
+                                  user_pwd : $('#user_pwd').val()},
+                        dataType : 'json',
+                        success : function(list) {
+                            txt = ""
+                            $.each(list, function(idx, data) {
+                                txt += '<tr><td>'+data.id+'</td><td>'+data.pwd+'</td></tr>'
+                            })
+                            $('#tbody').empty().append(txt)
+                        }
+                    })
+                })
+
+    </script>
+</body>
+</html>
