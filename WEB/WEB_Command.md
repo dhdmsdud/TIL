@@ -40,3 +40,25 @@ python manage.py startapp GreetingApp
 
 settibngs에 app추가
 
+
+
+static 위치를 지정해주는 작업, 각각의 app에 흩어져 있는 static을 한곳으로 모음
+
+web> python manage.py collectstatic
+
+
+
+model생성 후 admin등록
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+
+
+orm을 통한 데이터베이스 관리를 위한 계정생성 및 접근
+
+python manage.py createsuperuser
+
+
+
