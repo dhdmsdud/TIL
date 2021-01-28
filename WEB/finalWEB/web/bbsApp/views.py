@@ -35,8 +35,14 @@ from .models import *
 # obj.attr = value
 # obj.save() --commit
 
+# 사용자의 상태정보 저장을 위해서는 session, cookie 필요
 def index(request):
-    return render(request, 'login.html')
+    if request.session.get('user_id') and request.session.get('user_name'):
+        context = {'id' : request.session['user_id'],
+                   'name' : request.session['user_name']}
+        return render(request, 'home.html', context)
+    else:
+        return render(request, 'login.html')
 
 def loginProc(request) :
     print('request - loginProc')
@@ -51,8 +57,15 @@ def loginProc(request) :
         #     return redirect('index')
         user = BbsUserRegister.objects.get(user_id=id, user_pwd=pwd)
         print('user result - ' , user)
+        context = {}
         if user is not None :
-            return render(request, 'home.html')
+            # session create
+            request.session['user_name'] = user.user_name
+            request.session['user_id']   = user.user_id
+            # session write
+            context['name'] = request.session['user_name']
+            context['id']   = request.session['user_id']
+            return render(request, 'home.html', context)
         else :
             return redirect('index')
 
@@ -67,3 +80,45 @@ def register(request) :
         register = BbsUserRegister(user_id =  id, user_pwd = pwd, user_name = name)
         register.save()
     return render(request, 'login.html')
+
+def logout(request) :
+    request.session['user_name'] = {}
+    request.session['user_id']   = {}
+    request.session.modified     = True
+    return redirect('index')
+
+# bbs
+def bbs_list(request) :
+    # select * from bbs;
+    # modelName.objects.all()
+    boards = Bbs.objects.all()
+    print('bbs_list request - ', type(boards), boards)
+    context = {'boards' : boards,
+               'name'   : request.session['user_name'],
+               'id'     : request.session['user_id']}
+    return render(request, 'list.html', context)
+
+def bbs_registerForm(request) :
+    context = {'name' : request.session['user_name'],
+               'id'   : request.session['user_id']}
+    return render(request, 'bbsRegisterForm.html', context)
+
+def bbs_register(request) :
+    title   = request.POST['title']
+    content = request.POST['content']
+    writer  = request.POST['writer']
+    board   = Bbs(title = title, content = content, writer =writer)
+    board.save()
+    return redirect('bbs_list')
+
+def bbs_read(request, id) :
+    print('request bbs_read param id - ', id)
+    board = Bbs.objects.get(id=id)
+    board.viewcnt = board.viewcnt + 1
+    board.save()
+    context = {'board' : board,
+               'name'   : request.session['user_name'],
+               'id'     : request.session['user_id']
+               }
+    return render(request, 'read.html', context)
+
