@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import *
 
@@ -150,6 +151,24 @@ def bbs_modify(request) :
     board.save()
 
     return redirect('bbs_list')
+
+def bbs_search(request):
+    type = request.POST['type']
+    keyword = request.POST['keyword']
+    #print('request bbs_search - ', type, keyword)
+    if type == 'title':
+        boards = Bbs.objects.filter(title__icontains = keyword)
+    if type == 'writer':
+        boards = Bbs.objects.filter(writer__startwith=keyword)
+        #print('ajax -result -', boards)
+    list = []
+    for board in boards:
+         list.append({
+            'id' : board.id, 'title' : board.title, 'writer' : board.writer,
+             'regdate' : board.regdate, 'viewcnt' : board.viewcnt
+        })
+    return JsonResponse(list, safe=False)
+
 
 
 

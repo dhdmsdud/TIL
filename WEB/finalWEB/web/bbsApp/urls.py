@@ -16,4 +16,5 @@ urlpatterns = [
     path('bbs_remove/',         views.bbs_remove,       name='bbs_remove'),
     path('bbs_modifyForm/',     views.bbs_modifyForm,   name='bbs_modifyForm'),
     path('bbs_modify/',         views.bbs_modify,       name='bbs_modify'),
+    path('bbs_search/',         views.bbs_search,       name='bbs_search'),
 ]
