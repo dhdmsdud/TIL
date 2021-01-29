@@ -1,5 +1,8 @@
+
 {% include 'header.html' %}
+
 {% block content %}
+
 <!-- Main content -->
 <section class="content">
 	<div class="row">
@@ -13,7 +16,7 @@
 				<!-- /.box-header -->
 
 <form role="form" method="post">
-	
+
 	<input type='hidden' name='id' value="OOO">
 
 </form>
@@ -38,16 +41,35 @@
 <!-- /.box-body -->
 
 <div class="box-footer">
-	<button type="button" class="btn btn-primary" id="listBtn">LIST ALL</button>
+	<button type="button" class="btn btn-primary" id ="listBtn">List</button>
+
+	{% if id == board.writer %}
+	<button type="button" class="btn btn-warning" id ="modiBtn">Modify</button>
+	<button type="button" class="btn btn-danger" id ="remoBtn">Remove</button>
+	{% endif %}
+
 </div>
+
+<form method="post" id="removeFrm">
+	{% csrf_token %}
+	<input type="hidden" name="id" value="{{board.id}}">
+</form>
 
 
 <script>
 
-	$(document).ready(function(){
-		$('#listBtn').click(function() {
-			location.href='../bbs_list'
-			})
+	$(document).ready(function() {
+		$('#listBtn').click(function () {
+			location.href = '../bbs_list'
+		})
+
+		$('#remoBtn').click(function () {
+			// $('#removeFrm').attr('action', "bbs_remove").submit()
+			$('#removeFrm').attr('action', "{% url 'bbs_remove' %}").submit()
+		})
+		$('#modiBtn').click(function () {
+            $('#removeFrm').attr('action', "{% url 'bbs_modifyForm' %}").submit()
+		})
 	});
 
 </script>
@@ -66,5 +88,6 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
 {% endblock %}
 {% include 'footer.html' %}
