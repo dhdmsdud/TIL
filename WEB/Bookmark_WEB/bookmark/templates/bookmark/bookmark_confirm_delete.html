@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Confirm Delete{% endblock %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="aler alert_danger">Do you waant to delete bookmark?</div>
+        <input type="submit" value="Delte"class="btn btn-danger">
+    </form>
+{% endblock %}

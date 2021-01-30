@@ -25,17 +25,6 @@ print(not truevalue)
 
 
 
-bool(None)
-bool({})
-bool('')
-bool('0')
-
-listv=["A", "b", "c", "D", "e", "F", "G", "h"];
-result=[x for x in listv if x.islower() ];
-
-print(“%d + %d” (      ) (100,200))
-
-
 
 
 

@@ -1,29 +1,30 @@
-# 1. displ(배기량)이 4 이하인 자동차와 5 이상인 자동차 중
-# 어떤 자동차의 hwy(고속도로 연비)가 평균적으로 더 높은지 확인하세요.
 from statistics import *
+
 def load_data():
     with open(file="./word/mpg.txt", mode="r", encoding="utf8") as file:
-        keys = file.readline().split(",")
-        # print("debug : ", keys)
+        features = file.readline().split(",")
+        # print("debug : ", features)
         car_list = []
         for line in file.readlines():
-            values = line.split(",")
+            car = line.split(",")
             dic = {}
-            for idx in range(len(values)):
-                dic[keys[idx]] = values[idx]
+            for idx in range(len(car)):
+                dic[features[idx]] = car[idx]
             car_list.append(dic)
-            # print("debug : ", car_list)
+            print("debug : ", car_list)
     return car_list
 
-
+# 1. displ(배기량)이 4 이하인 자동차와 5 이상인 자동차 중
+# 어떤 자동차의 hwy(고속도로 연비)가 평균적으로 더 높은지 확인하세요.
 def q01():
     dataset = load_data()
-    for obj in dataset:
-        # print("debug : ", obj)
-        # print(obj["displ"])
-        if int(obj["displ"]) <= 4:
-
+    print(dataset['displ'])
 q01()
+
+
+
+
+
 # 2. 자동차 제조 회사에 따라 도시 연비가 다른지 알아보려고 한다.
 # "audi"와 "toyota" 중 어느 manufacturer(제조회사)의 cty(도시 연비)가
 # 평균적으로 더 높은지 확인하세요.
