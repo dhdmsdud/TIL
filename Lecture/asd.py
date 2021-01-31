@@ -81,7 +81,27 @@ print("chevrorlet의 고속도로 평균 연비 : {}".format(avg_chevrorlet_hwy)
 # 4. "audi"에서 생산한 자동차 중에 어떤 자동차 모델의 hwy(고속도로 연비)가
 # 높은지 알아보려고 한다. "audi"에서 생산한 자동차 중 hwy가 1~5위에 해당하는
 # 자동차의 데이터를 출력하세요. sort사용
+audi_hwy = []
+audi_model =[]
+for obj in car_list:
+    if obj.manufacturer == "audi":
+        audi_hwy.append(obj.hwy)
+        audi_model.append(obj.model)
+dict01 = {
+    audi_hwy[:5]: obj.model
+}
+print(dict01)
 
+
+#audi_hwy.sort(reverse=True)
+
+#print(audi_hwy[:5])
+
+
+
+
+for dbj in car_list:
+    if obj.manufactucer == ""
 # 5. mpg 데이터는 연비를 나타내는 변수가 2개입니다.
 # 두 변수를 각각 활용하는 대신 하나의 통합 연비 변수를 만들어 사용하려 합니다.
 # 평균 연비 변수는 두 연비(고속도로와 도시)의 평균을 이용합니다.
