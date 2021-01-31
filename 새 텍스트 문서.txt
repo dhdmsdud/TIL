@@ -87,7 +87,7 @@ bool('0')
 
 listv=["A", "b", "c", "D", "e", "F", "G", "h"];
 result=[x for x in listv if x.islower() ];
-==>b, c, e, h
+==>[b, c, e, h]
 
 19. 데이터의 종류가 아닌 것은?(정형, 비정형, 반정형)
 ==> 정형 : 관계형 데이터베이스(RDB), 스프레드시트, CSV
@@ -96,7 +96,7 @@ result=[x for x in listv if x.islower() ];
 
 20. HTML tag 중 텍스트에 링크를 설정해 hypertext를 생성하려는 경우 사용되는 태그명은?
 ==>href
-==> a태그
+==> a태그, < a href="경로" > < /a >
 
 21. 다음 중 jQuery의 selector 중 id 속성의 값이 "test" 인 element를 선택할 때 사용하는 것은?
 ==>$('#test')

@@ -212,9 +212,9 @@ def question07():
     class_cnt = {}
     list = []
 
-    for i in mpgList:
-        hwy_sum[i.getManufacturer()] = hwy_sum.get(i.getManufacturer(),0) + int(i.getHwy())
-        class_cnt[i.getManufacturer()] = class_cnt.get(i.getManufacturer(),0) + 1
+    for i in car_list:
+        hwy_sum[i.manufacturer()] = hwy_sum.get(i.manufacturer(),0) + int(i.hwy())
+        class_cnt[i.manufacturer()] = class_cnt.get(i.manufacturer(),0) + 1
     for i in hwy_sum.keys():
         list.append([i, round(hwy_sum[i]/class_cnt[i],2)])
         list.sort(key=lambda object: object[1], reverse=True)
