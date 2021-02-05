@@ -184,7 +184,7 @@ def csvUpload(request):
     for row in reader:
         print('row : ', row)
     file.close()
-    csvModel.objects.bulk_create(list)
+    #csvModel.objects.bulk_create(list)
     return redirect('index')
 
 

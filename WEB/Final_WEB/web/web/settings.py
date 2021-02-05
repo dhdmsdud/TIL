@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'frontApp',
     'bbsApp',
+    'chartApp',
 ]
 
 MIDDLEWARE = [
