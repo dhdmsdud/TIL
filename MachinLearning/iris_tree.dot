@@ -1,0 +1,20 @@
+digraph Tree {
+node [shape=box, style="filled", color="black"] ;
+0 [label="petal length (cm) <= 2.45\nentropy = 1.581\nsamples = 120\nvalue = [39, 44, 37]\nclass = versicolor", fillcolor="#f3fdf7"] ;
+1 [label="entropy = 0.0\nsamples = 39\nvalue = [39, 0, 0]\nclass = setosa", fillcolor="#e58139"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="petal width (cm) <= 1.65\nentropy = 0.995\nsamples = 81\nvalue = [0, 44, 37]\nclass = versicolor", fillcolor="#e0fbeb"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label="petal length (cm) <= 4.95\nentropy = 0.42\nsamples = 47\nvalue = [0, 43, 4]\nclass = versicolor", fillcolor="#4be78d"] ;
+2 -> 3 ;
+4 [label="entropy = 0.0\nsamples = 42\nvalue = [0, 42, 0]\nclass = versicolor", fillcolor="#39e581"] ;
+3 -> 4 ;
+5 [label="entropy = 0.722\nsamples = 5\nvalue = [0, 1, 4]\nclass = virginica", fillcolor="#a06aec"] ;
+3 -> 5 ;
+6 [label="petal length (cm) <= 4.85\nentropy = 0.191\nsamples = 34\nvalue = [0, 1, 33]\nclass = virginica", fillcolor="#853fe6"] ;
+2 -> 6 ;
+7 [label="entropy = 0.811\nsamples = 4\nvalue = [0, 1, 3]\nclass = virginica", fillcolor="#ab7bee"] ;
+6 -> 7 ;
+8 [label="entropy = 0.0\nsamples = 30\nvalue = [0, 0, 30]\nclass = virginica", fillcolor="#8139e5"] ;
+6 -> 8 ;
+}
