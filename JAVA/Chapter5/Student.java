@@ -7,6 +7,13 @@ public class Student {
 	int grade;
 	String address;
 	
+	public Student() {}
+	
+	public Student(int id, String name) {
+		studentID = id;
+		studentName = name;
+	}
+	
 	public void showStudentInfo() {
 		System.out.println(studentName + "," + address);
 	}
@@ -26,5 +33,14 @@ public class Student {
 	
 	public void setStudentName(String name) {
 		studentName = name;
+	}
+	
+	public static void main(String[]args) {
+		Student ruby = new Student();
+		ruby.studentName = "Àº¿µ";
+		ruby.studentID = 1;
+		ruby.address = "new york";
+		
+		ruby.showStudentInfo();
 	}
 }
